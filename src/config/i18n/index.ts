@@ -1,17 +1,15 @@
 import * as Localization from "expo-localization";
 import i18n from "i18next";
-import { MMKV } from "react-native-mmkv";
 
 import { initReactI18next } from "react-i18next";
-import translationEn from "./locales/en/translation.json";
-import translationId from "./locales/id/translation.json";
+import { storage } from "..";
+import translationEn from "./locales/en.json";
+import translationId from "./locales/id.json";
 
 const resources = {
   id: { translation: translationId },
   en: { translation: translationEn },
 };
-
-export const storage = new MMKV();
 
 const initI18n = () => {
   let savedLanguage = storage.getString("language");

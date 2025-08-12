@@ -10,6 +10,7 @@ const dimension = {
   xxl: 32,
   br0: 8,
   br1: 4,
+  brFull: 100,
 };
 
 const lightTheme = {
