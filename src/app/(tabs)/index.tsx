@@ -1,5 +1,8 @@
+import DHeaderSection from "@/modules/home/components/DHeaderSection";
+import DOutlineButton from "@/modules/home/components/DOutlineButton";
 import Feather from "@expo/vector-icons/Feather";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import React from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, Text, View } from "react-native";
 import { StyleSheet, UnistylesRuntime } from "react-native-unistyles";
@@ -7,8 +10,52 @@ import { StyleSheet, UnistylesRuntime } from "react-native-unistyles";
 export default function HomeScreen() {
   const { t } = useTranslation();
 
+  /**
+   * id	INTEGER	Primary Key.
+amount	INTEGER	The transaction amount, stored as an integer.
+type	TEXT	"expense", "income", or "transfer".
+notes	TEXT	(Nullable) Any additional, optional notes.
+transaction_date	TIMESTAMP	The full date and time of the transaction.
+category_id	INTEGER	Foreign Key that links to the Categories table.
+wallet_id	INTEGER	Foreign Key that links to the Wallets table.
+destination_wallet_id	I
+   */
+  const transactionList = [
+    // Example transaction data
+    {
+      id: 1,
+      categoryName: "Groceries",
+      amount: 50000,
+      type: "expense",
+      date: "2023-10-01",
+      walletName: "Cash",
+      icon: <Feather name="shopping-cart" size={16} color="black" />,
+      IconColor: "orange",
+    },
+    {
+      id: 2,
+      categoryName: "Groceries",
+      amount: 50000,
+      type: "expense",
+      date: "2023-10-01",
+      walletName: "Cash",
+      icon: <Feather name="shopping-cart" size={16} color="black" />,
+      IconColor: "orange",
+    },
+    {
+      id: 3,
+      categoryName: "Groceries",
+      amount: 50000,
+      type: "expense",
+      date: "2023-10-01",
+      walletName: "Cash",
+      icon: <Feather name="shopping-cart" size={16} color="black" />,
+      IconColor: "orange",
+    },
+  ];
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} contentContainerStyle={{ gap: 16 }}>
       <View style={styles.homeCard}>
         <View style={styles.balanceHeader}>
           <Text style={styles.totalBalanceText}>{t("home.totalBalance")}</Text>
@@ -30,10 +77,7 @@ export default function HomeScreen() {
               <Text>+2</Text>
             </View>
           </View>
-          <View style={styles.dateRangeButton}>
-            <Text style={{ color: "white" }}>{t("home.thisMonth")}</Text>
-            <FontAwesome5 name="caret-down" color="white" />
-          </View>
+          <DOutlineButton text={t("home.thisMonth")} isDropdown />
         </View>
         <View style={{ flexDirection: "row", gap: 8 }}>
           <View style={styles.incomeCard}>
@@ -56,6 +100,19 @@ export default function HomeScreen() {
           </View>
         </View>
       </View>
+      <DHeaderSection
+        textHeader={t("home.top5Spending")}
+        textButton={t("home.seeReport")}
+        onPress={() => console.log("seeReport pressed")}
+      />
+      <View style={styles.chartContainer}>
+        <Text> TODO: Donut Chart</Text>
+      </View>
+      <DHeaderSection
+        textHeader={t("home.latestTransaction")}
+        textButton={t("home.viewAll")}
+        onPress={() => console.log("viewAll pressed")}
+      />
     </ScrollView>
   );
 }
@@ -65,7 +122,13 @@ const styles = StyleSheet.create((theme) => ({
     flex: 1,
     paddingVertical: theme.dimension.lg,
     paddingTop: UnistylesRuntime.insets.top + theme.dimension.lg,
-    gap: theme.dimension.lg,
+  },
+  chartContainer: {
+    height: 300,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    marginHorizontal: 16,
   },
   balanceHeader: {
     flexDirection: "row",
